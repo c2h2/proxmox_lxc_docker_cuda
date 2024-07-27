@@ -21,7 +21,7 @@ notes of install and run cuda on docker within lxc and proxmox.
 ````
 
 Tested with:
-- Proxmox version: 8.2.4
+- Proxmox version: 8.2.4 (Linux xpve10 6.8.8-3-pve #1 SMP PREEMPT_DYNAMIC PMX 6.8.8-3 (2024-07-16T16:16Z) x86_64 GNU/Linux)
 - CPU: Intel 13700KF
 - 2x 3090 24GB
 - 96GB DDR5
