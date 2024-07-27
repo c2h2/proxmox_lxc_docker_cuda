@@ -63,8 +63,27 @@ sh cuda_12.5.1_555.42.06_linux.run
   lxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,create=file
   ```
 
-**Install nvidia container toolkits inside LXC:**
+**Install NV driver and cuda toolkits inside LXC (Ubuntu 22.04):**
+Push the cuda file into the container:
+```
+# enter push cmd
+```
 
+Install Driver without kernel header
+
+
+Install cuda
+
+
+**Install nvidia container toolkits inside LXC (Ubuntu 22.04):**
+```
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt update
+sudo apt install -y nvidia-container-toolkit
+sudo systemctl restart docker
+```
 
 
 **Test inside LXC:**
@@ -96,3 +115,49 @@ sh cuda_12.5.1_555.42.06_linux.run
 +-----------------------------------------------------------------------------------------+
 ```
 
+Test Run with gpu hello.cu
+```
+#include <iostream>
+#include <cuda_runtime.h>
+
+__global__ void calculate(int *results) {
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
+    if (idx < 20) {
+        results[idx] = idx * idx + idx;
+    }
+}
+
+int main() {
+    const int arraySize = 20;
+    int results[arraySize];
+
+    // Allocate memory on the GPU
+    int *d_results;
+    cudaMalloc(&d_results, arraySize * sizeof(int));
+
+    // Define the number of threads and blocks
+    int blockSize = 20;
+    int numBlocks = (arraySize + blockSize - 1) / blockSize;
+
+    // Launch the kernel
+    calculate<<<numBlocks, blockSize>>>(d_results);
+
+    // Copy the results back to the CPU
+    cudaMemcpy(results, d_results, arraySize * sizeof(int), cudaMemcpyDeviceToHost);
+
+    // Print the results
+    for (int i = 0; i < arraySize; ++i) {
+        std::cout << (i + 1) << "*" << (i + 1) << "+" << (i + 1) << " = " << results[i] << std::endl;
+    }
+
+    // Free GPU memory
+    cudaFree(d_results);
+
+    return 0;
+}
+```
+
+Verify with docker gpu hello world
+```
+docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+```
