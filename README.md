@@ -57,10 +57,10 @@ sh cuda_12.5.1_555.42.06_linux.run
       vim /etc/udev/rules.d/70-nvidia.rules
       ```
     - Add the following lines to the file:
-     ```plaintext
-     KERNEL=="nvidia", RUN+="/bin/bash -c '/usr/bin/nvidia-smi -L && /bin/chmod 666 /dev/nvidia*'"
-     KERNEL=="nvidia_uvm", RUN+="/bin/bash -c '/usr/bin/nvidia-modprobe -c0 -u && /bin/chmod 0666 /dev/nvidia-uvm*'"
-     ```
+      ```plaintext
+       KERNEL=="nvidia", RUN+="/bin/bash -c '/usr/bin/nvidia-smi -L && /bin/chmod 666 /dev/nvidia*'"
+       KERNEL=="nvidia_uvm", RUN+="/bin/bash -c '/usr/bin/nvidia-modprobe -c0 -u && /bin/chmod 0666 /dev/nvidia-uvm*'"
+       ```
      
 **Enable Kernel Modules:**
   - Open: 
