@@ -29,6 +29,7 @@ Tested with:
 use root for follwing:
 
 **Create a Blacklist Configuration File:**
+Driver Conflict: The Nouveau driver is an open-source graphics driver for NVIDIA cards. If it's running, it can conflict with the proprietary NVIDIA driver because both drivers attempt to control the GPU.
    - Open or create the blacklist configuration file using a text editor, for example, `vim`:
      ```bash
      vim /etc/modprobe.d/blacklist-nouveau.conf
@@ -40,6 +41,7 @@ use root for follwing:
      ```
 
    ```
+   update-initramfs -u
    reboot
    ```
   
