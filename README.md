@@ -39,23 +39,17 @@ Driver Conflict: The Nouveau driver is an open-source graphics driver for NVIDIA
      blacklist nouveau
      options nouveau modeset=0
      ```
-
-   ```
-   update-initramfs -u
-   reboot
-   ```
+   - Reboot
+     ```
+     update-initramfs -u
+     reboot
+     ```
   
 **PVE Kernel Headers**
   - Install kernel header for all version of pve
    ```
    apt install pve-headers
    ```
-
-**Download and install cuda 12.5 from official source:**
-```
-wget https://developer.download.nvidia.com/compute/cuda/12.5.1/local_installers/cuda_12.5.1_555.42.06_linux.run
-sh cuda_12.5.1_555.42.06_linux.run
-```
 
 **Create udev rules:**
    - Open or create the blacklist configuration file using a text editor, for example, `vim`:
@@ -67,6 +61,15 @@ sh cuda_12.5.1_555.42.06_linux.run
      KERNEL=="nvidia", RUN+="/bin/bash -c '/usr/bin/nvidia-smi -L && /bin/chmod 666 /dev/nvidia*'"
      KERNEL=="nvidia_uvm", RUN+="/bin/bash -c '/usr/bin/nvidia-modprobe -c0 -u && /bin/chmod 0666 /dev/nvidia-uvm*'"
      ```
+**Download and install cuda 12.5 from official source:**
+```
+wget https://developer.download.nvidia.com/compute/cuda/12.5.1/local_installers/cuda_12.5.1_555.42.06_linux.run
+sh cuda_12.5.1_555.42.06_linux.run
+```
+
+**PATH**:
+ -   PATH includes /usr/local/cuda-12.5/bin
+ -   LD_LIBRARY_PATH includes /usr/local/cuda-12.5/lib64, or, add /usr/local/cuda-12.5/lib64 to /etc/ld.so.conf and run ldconfig as root
      
 **Enable Kernel Modules:**
   - Open: 
