@@ -101,6 +101,10 @@ sh cuda_12.5.1_555.42.06_linux.run
   lxc.mount.entry: /dev/nvidia-uvm dev/nvidia-uvm none bind,optional,create=file
   lxc.mount.entry: /dev/nvidia-uvm-tools dev/nvidia-uvm-tools none bind,optional,create=file
   ```
+  also add cpu affinity on multiple cpu system (36 cpus) to reduce memory latency:
+  ```
+  lxc.cgroup.cpuset.cpus: 0-35
+  ```
 
 **Install NV driver and cuda toolkits inside LXC (Ubuntu 22.04):**
 Push the cuda file into the container:
