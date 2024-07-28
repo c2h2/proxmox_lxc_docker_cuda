@@ -164,7 +164,7 @@ Test Run with gpu hello.cu
 #include <cuda_runtime.h>
 
 __global__ void calculate(int *results) {
-    int idx = threadIdx.x + blockIdx.x * blockDim.x;
+    int idx = threadIdx.x + blockIdx.x * blockDim.x + 1;
     if (idx < 20) {
         results[idx] = idx * idx + idx;
     }
