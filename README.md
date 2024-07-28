@@ -200,7 +200,7 @@ int main() {
 }
 ```
 
-Verify with docker gpu hello world
+Verify with docker gpu hello world, (go to: https://hub.docker.com/r/nvidia/cuda/tags find a docker you would like to test)
 ```
-docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+docker run --rm --gpus all nvidia/12.5.1-base-ubuntu20.04 nvidia-smi
 ```
