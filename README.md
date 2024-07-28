@@ -164,7 +164,7 @@ Test Run with gpu hello.cu
 #include <cuda_runtime.h>
 
 __global__ void calculate(int *results) {
-    int idx = threadIdx.x + blockIdx.x * blockDim.x + 1;
+    int idx = threadIdx.x + blockIdx.x * blockDim.x;
     if (idx < 20) {
         results[idx] = idx * idx + idx;
     }
@@ -190,7 +190,7 @@ int main() {
 
     // Print the results
     for (int i = 0; i < arraySize; ++i) {
-        std::cout << (i + 1) << "*" << (i + 1) << "+" << (i + 1) << " = " << results[i] << std::endl;
+        std::cout << i << "*" << i << "+" << i << " = " << results[i] << std::endl;
     }
 
     // Free GPU memory
