@@ -199,6 +199,11 @@ int main() {
     return 0;
 }
 ```
+Test it with:
+```
+root@docker-cuda:~# nvcc test.cu 
+root@docker-cuda:~# ./a.out
+```
 
 Verify with docker gpu hello world, (go to: https://hub.docker.com/r/nvidia/cuda/tags find a docker you would like to test)
 ```
