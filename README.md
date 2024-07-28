@@ -175,8 +175,8 @@ int main() {
     cudaMalloc(&d_results, arraySize * sizeof(int));
 
     // Define the number of threads and blocks
-    int blockSize = 20;
-    int numBlocks = (arraySize + blockSize - 1) / blockSize;
+    int blockSize = 20; // Since arraySize is 20, one block with 20 threads is sufficient
+    int numBlocks = 1;  // Only one block is needed
 
     // Launch the kernel
     calculate<<<numBlocks, blockSize>>>(d_results);
