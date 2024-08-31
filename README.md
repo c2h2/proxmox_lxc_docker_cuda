@@ -1,5 +1,5 @@
 # proxmox_lxc_docker_cuda
-notes of install and run cuda on docker within lxc and proxmox.
+Notes of install and run cuda on docker within lxc and proxmox.
 
 ````
 +--------------------------------------------------+
@@ -19,6 +19,7 @@ notes of install and run cuda on docker within lxc and proxmox.
 +--------------------------------------------------+
 
 ````
+This approach not only minimizes overhead but also simplifies switching between different LXC containers and Docker environments.
 
 Tested with:
 - Proxmox version: 8.2.4 (Linux xpve10 6.8.8-3-pve #1 SMP PREEMPT_DYNAMIC PMX 6.8.8-3 (2024-07-16T16:16Z) x86_64 GNU/Linux)
@@ -112,9 +113,12 @@ Push the cuda file into the container:
 # enter push cmd example: (on proxmox)# pct push 9095 cuda_12.6.0_560.28.03_linux.run /root/cuda_12.6.0_560.28.03_linux.run
 ```
 
-Install Driver without kernel header (inside LXC)
+Install Driver without kernel header (inside LXC) if you also need to extract the driver.
 ```
-./NVIDIA-Linux-x86_64-5xx.xx.xx.run --no-kernel-modules
+mkdir -p /opt/cuda
+./cuda_12.6.0_560.28.03_linux.run --extract=/opt/cuda
+cd /opt/cuda
+./NVIDIA-Linux-x86_64-560.28.03.run --no-kernel-modules
 ```
 
 Install cuda (inside LXC)
