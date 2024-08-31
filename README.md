@@ -113,7 +113,9 @@ Push the cuda file into the container:
 ```
 
 Install Driver without kernel header
-
+```
+./NVIDIA-Linux-x86_64-5xx.xx.xx.run --no-kernel-modules
+```
 
 Install cuda
 
